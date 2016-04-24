@@ -1,0 +1,21 @@
+{
+	"name" : "Overflow" ,
+	"manifest_version" : 2,
+	 "version": "1.0",
+	"description" : "Helpful extension for developers" ,
+	"icons": { "16": "icons/16x16.png", "48": "icons/48x48.png", "128": "icons/128x128.png" },
+	"omnibox" : {"keyword" : "mayank" } ,
+	"browser_action" : {
+		"default_icon": {
+        "19": "icons/19x19.png",
+        "38": "icons/38x38.png"
+    	} ,
+		"default_title" : "Overflowing.." ,
+		"default_popup" : "popup.html"
+	} ,
+	"background" : {
+		"scripts" : ["background.js"] ,
+		"persistent" : false
+	} ,
+ 	"permissions": ["tabs", "<all_urls>"]
+}
