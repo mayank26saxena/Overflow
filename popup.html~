@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html style=''>
 <head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src='popup.js'></script>
 </head>
 <body style="width:400px;">
