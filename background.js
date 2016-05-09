@@ -16,24 +16,9 @@ chrome.omnibox.onInputEntered.addListener(
     console.log('inputEntered: ' + text);
     //alert('You just typed "' + text + '"');
     var url = 'http://www.google.com/search?q=' + text;
-    navigate(url);  
-
-  
+    navigate(url);    
   });
 
-
-function navigate(url) {
-
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.update(tabs[0].id, {url: url})
-  
-    $.ajax({ url: url2 , success: function(data) { 
-	console.log(data); 
-		} 
-	});   
-
-  });
-}
 
 function DOMtoString(document_root) {
     var html = '',
@@ -43,7 +28,7 @@ function DOMtoString(document_root) {
         case Node.ELEMENT_NODE:
             html += node.outerHTML;
             break;
-        case Node.TEXT_NODE:
+        case Node.TEXT_NODE:	
             html += node.nodeValue;
             break;
         case Node.CDATA_SECTION_NODE:
@@ -59,7 +44,41 @@ function DOMtoString(document_root) {
         }
         node = node.nextSibling;
     }
-    console.log(html);
+    
     return html;
+}	
+
+
+function navigate(url) {
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.update(tabs[0].id, {url: url})
+  });
+  window.onload = onWindowLoad;
 }
+
+
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  if (request.action == "getSource") {
+    message.innerText = request.source;
+  }
+});
+
+function onWindowLoad() {
+
+  var message = document.querySelector('#message');
+
+  chrome.tabs.executeScript(null, {
+    file: "getPagesSource.js"
+  }, function() {
+    // If you try and inject into an extensions page or the webstore/NTP you'll get an error
+    if (chrome.runtime.lastError) {
+      message.innerText = 'There was an error injecting script : \n' + chrome.runtime.lastError.message;
+    }
+  });
+
+}
+
+
+
 

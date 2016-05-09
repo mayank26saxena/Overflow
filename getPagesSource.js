@@ -34,4 +34,7 @@ chrome.runtime.sendMessage({
     source: DOMtoString(document)
 });
 
-object.onload=function(){var serialized_html = DOMtoString(document);console.log(html);};
+object.onload=function(){console.log("getpagesource.js");var serialized_html = DOMtoString(document);console.log(serialized_html);};
+
+
+
